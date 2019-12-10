@@ -1,17 +1,54 @@
 # TO-DO: complete the helpe function below to merge 2 sorted arrays
+
+array1 = [10,2,35,9,27]
+array2 = [18,20,3,9,2,8, 4, 13]
 def merge( arrA, arrB ):
-    elements = len( arrA ) + len( arrB )
+    # factor for empty arrays
+    if len(arrA) == 0:
+        return arrB
+    if len(arrB) == 0:
+        return arrA
+    
+
+    #   get the count of elements in array(s)
+    elements = len(arrA) + len(arrB)
+
+    
     merged_arr = [0] * elements
     # TO-DO
-    
-    return merged_arr
 
+    x, y = 0, 0
+    for i in range(elements):
+        if len(arrA) == x:
+            for j in range(y, len(arrB)):
+                merged_arr[i + j - y] = arrB[j]
+            return merged_arr
+        elif len(arrB) == y:
+            for j in range(x, len(arrA)):
+                merged_arr[i + j - x] = arrA[j]
+            return merged_arr
+
+        if arrA[x] < arrB[y]:
+            merged_arr[i] = arrA[x]
+            x += 1
+        else:
+            merged_arr[i] = arrB[y]
+            y += 1
+    return merged_arr
+print(merge(array1, array2))
+
+
+newArray = merge(array1, array2)
 
 # TO-DO: implement the Merge Sort function below USING RECURSION
 def merge_sort( arr ):
     # TO-DO
+    if len(arr) <= 1:
+        return arr
+    split = len(arr) // 2
+    return merge(merge_sort(arr[:split]), merge_sort(arr[split:]))
 
-    return arr
+print(merge_sort(newArray))
 
 
 # STRETCH: implement an in-place merge sort algorithm
